@@ -1,5 +1,7 @@
 import { Component } from "react";
 import "./App.css";
+import Navbar from "./components/layout/Navbar";
+import UserItem from "./components/users/UserItem";
 
 class App extends Component {
   // Properties
@@ -18,12 +20,13 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="App">
-        <h1>Hello World</h1>
-        {this.state.isDisplay && <p>{this.state.fullName}</p>}
-        <p>{this.state.address}</p>
-        <p>{this.state.counter}</p>
-        <button onClick={this.increaseCounter}>Increase Counter</button>
+      <div>
+        <Navbar />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
       </div>
     );
   }
