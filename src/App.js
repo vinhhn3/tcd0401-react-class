@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Component } from "react";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
@@ -6,23 +7,23 @@ import Users from "./components/users/Users";
 class App extends Component {
   // Properties
   state = {
-    fullName: "Vinh Hoang",
-    address: "Le Loi",
-    counter: 0,
-    isDisplay: false,
+    usersData: [],
   };
 
-  // Methods
-  increaseCounter = () => {
-    this.setState({
-      counter: this.state.counter + 1,
+  componentDidMount() {
+    console.log("Users component mounted ...");
+    axios.get("https://api.github.com/users").then((response) => {
+      console.log(response.data);
+      this.setState({
+        usersData: response.data,
+      });
     });
-  };
+  }
   render() {
     return (
       <div>
         <Navbar />
-        <Users />
+        <Users usersData={this.state.usersData} />
       </div>
     );
   }
