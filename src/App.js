@@ -1,7 +1,7 @@
 import { Component } from "react";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
-import UserItem from "./components/users/UserItem";
+import Users from "./components/users/Users";
 
 class App extends Component {
   // Properties
@@ -22,11 +22,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <UserItem />
-        <UserItem />
-        <UserItem />
-        <UserItem />
-        <UserItem />
+        <Users />
       </div>
     );
   }
