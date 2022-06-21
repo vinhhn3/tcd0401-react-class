@@ -2,6 +2,7 @@ import axios from "axios";
 import { Component } from "react";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
+import Search from "./components/users/Search";
 import Users from "./components/users/Users";
 
 class App extends Component {
@@ -10,20 +11,33 @@ class App extends Component {
     usersData: [],
   };
 
-  componentDidMount() {
-    console.log("Users component mounted ...");
-    axios.get("https://api.github.com/users").then((response) => {
-      console.log(response.data);
-      this.setState({
-        usersData: response.data,
-      });
+  searchUsers = async (text) => {
+    const response = await axios.get(
+      `https://api.github.com/search/users?q=${text}`
+    );
+    this.setState({
+      usersData: response.data.items,
     });
-  }
+  };
+
+  clearUsers = () => {
+    this.setState({
+      usersData: [],
+    });
+  };
+
   render() {
     return (
       <div>
         <Navbar />
-        <Users usersData={this.state.usersData} />
+        <div className="container">
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            usersData={this.state.usersData}
+          />
+          <Users usersData={this.state.usersData} />
+        </div>
       </div>
     );
   }
