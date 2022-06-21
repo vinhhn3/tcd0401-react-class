@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import About from "./components/pages/About";
+import PageNotFound from "./components/pages/PageNotFound";
 import Search from "./components/users/Search";
 import Users from "./components/users/Users";
 
@@ -50,6 +51,7 @@ class App extends Component {
                 )}
               />
               <Route exact path="/about" component={About} />
+              <Route path="" component={PageNotFound} />
             </Switch>
           </div>
         </div>
