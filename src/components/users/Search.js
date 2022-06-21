@@ -15,6 +15,14 @@ export class Search extends Component {
     event.preventDefault();
     this.props.searchUsers(this.state.text);
   };
+
+  handleClear = (event) => {
+    event.preventDefault();
+    this.setState({
+      text: "",
+    });
+    this.props.clearUsers();
+  };
   render() {
     return (
       <div>
@@ -31,6 +39,16 @@ export class Search extends Component {
             type="submit"
             className="btn btn-dark btn-block"
           />
+          {this.props.usersData.length > 0 ? (
+            <button
+              className="btn btn-light btn-block"
+              onClick={this.handleClear}
+            >
+              Clear
+            </button>
+          ) : (
+            ""
+          )}
         </form>
       </div>
     );

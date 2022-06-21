@@ -20,12 +20,22 @@ class App extends Component {
     });
   };
 
+  clearUsers = () => {
+    this.setState({
+      usersData: [],
+    });
+  };
+
   render() {
     return (
       <div>
         <Navbar />
         <div className="container">
-          <Search searchUsers={this.searchUsers} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            usersData={this.state.usersData}
+          />
           <Users usersData={this.state.usersData} />
         </div>
       </div>
