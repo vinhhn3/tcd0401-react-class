@@ -1,58 +1,48 @@
-import { Component } from "react";
+import { useState } from "react";
 
-export class Search extends Component {
-  state = {
-    text: "",
+const Search = (props) => {
+  const [text, setText] = useState("");
+  const { searchUsers, clearUsers, usersData } = props;
+
+  const handleChange = (event) => {
+    setText(event.target.value);
   };
 
-  handleChange = (event) => {
-    this.setState({
-      text: event.target.value,
-    });
-  };
-
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.searchUsers(this.state.text);
+    searchUsers(text);
   };
 
-  handleClear = (event) => {
+  const handleClear = (event) => {
     event.preventDefault();
-    this.setState({
-      text: "",
-    });
-    this.props.clearUsers();
+    setText("");
+    clearUsers();
   };
-  render() {
-    return (
-      <div>
-        <form className="form">
-          <input
-            name="text"
-            type="text"
-            placeholder="Search users by name"
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-          <input
-            onClick={this.handleSubmit}
-            type="submit"
-            className="btn btn-dark btn-block"
-          />
-          {this.props.usersData.length > 0 ? (
-            <button
-              className="btn btn-light btn-block"
-              onClick={this.handleClear}
-            >
-              Clear
-            </button>
-          ) : (
-            ""
-          )}
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <form className="form">
+        <input
+          name="text"
+          type="text"
+          placeholder="Search users by name"
+          onChange={handleChange}
+          value={text}
+        />
+        <input
+          onClick={handleSubmit}
+          type="submit"
+          className="btn btn-dark btn-block"
+        />
+        {usersData.length > 0 ? (
+          <button className="btn btn-light btn-block" onClick={handleClear}>
+            Clear
+          </button>
+        ) : (
+          ""
+        )}
+      </form>
+    </div>
+  );
+};
 
 export default Search;

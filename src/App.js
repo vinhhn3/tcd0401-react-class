@@ -1,61 +1,70 @@
 import axios from "axios";
-import { Component, Fragment } from "react";
+import { Fragment, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import About from "./components/pages/About";
+import PageNotFound from "./components/pages/PageNotFound";
 import Search from "./components/users/Search";
+import User from "./components/users/User";
 import Users from "./components/users/Users";
 
-class App extends Component {
+const App = () => {
   // Properties
-  state = {
-    usersData: [],
-  };
 
-  searchUsers = async (text) => {
+  const [usersData, setUsers] = useState([]);
+  const [user, setUser] = useState({});
+
+  const searchUsers = async (text) => {
     const response = await axios.get(
       `https://api.github.com/search/users?q=${text}`
     );
-    this.setState({
-      usersData: response.data.items,
-    });
+    setUsers(response.data.items);
   };
 
-  clearUsers = () => {
-    this.setState({
-      usersData: [],
-    });
+  const clearUsers = () => {
+    setUsers([]);
   };
 
-  render() {
-    return (
-      <Router>
-        <div>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() => (
-                  <Fragment>
-                    <Search
-                      searchUsers={this.searchUsers}
-                      clearUsers={this.clearUsers}
-                      usersData={this.state.usersData}
-                    />
-                    <Users usersData={this.state.usersData} />
-                  </Fragment>
-                )}
-              />
-              <Route exact path="/about" component={About} />
-            </Switch>
-          </div>
+  const getUser = async (login) => {
+    const response = await axios.get(`https://api.github.com/users/${login}`);
+    setUser(response.data);
+  };
+
+  return (
+    <Router>
+      <div>
+        <Navbar />
+        <div className="container">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Fragment>
+                  <Search
+                    searchUsers={searchUsers}
+                    clearUsers={clearUsers}
+                    usersData={usersData}
+                  />
+                  <Users usersData={usersData} />
+                </Fragment>
+              )}
+            />
+            <Route exact path="/about" component={About} />
+            <Route
+              exact
+              path="/user/:login"
+              render={(props) => (
+                <User {...props} user={user} getUser={getUser} />
+              )}
+            />
+            <Route path="" component={PageNotFound} />
+          </Switch>
         </div>
-      </Router>
-    );
-  }
-}
+      </div>
+    </Router>
+  );
+};
 
 export default App;
