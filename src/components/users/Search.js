@@ -14,11 +14,7 @@ export class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("click ....");
-    console.log(this.state.text);
-    this.setState({
-      text: "",
-    });
+    this.props.searchUsers(this.state.text);
   };
   render() {
     return (

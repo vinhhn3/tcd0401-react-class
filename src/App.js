@@ -9,6 +9,13 @@ class App extends Component {
   // Properties
   state = {
     usersData: [],
+    searchText: "",
+  };
+
+  searchUsers = (text) => {
+    this.setState({
+      searchText: text,
+    });
   };
 
   componentDidMount() {
@@ -25,7 +32,7 @@ class App extends Component {
       <div>
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users usersData={this.state.usersData} />
         </div>
       </div>
