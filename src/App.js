@@ -9,24 +9,17 @@ class App extends Component {
   // Properties
   state = {
     usersData: [],
-    searchText: "",
   };
 
-  searchUsers = (text) => {
+  searchUsers = async (text) => {
+    const response = await axios.get(
+      `https://api.github.com/search/users?q=${text}`
+    );
     this.setState({
-      searchText: text,
+      usersData: response.data.items,
     });
   };
 
-  componentDidMount() {
-    console.log("Users component mounted ...");
-    axios.get("https://api.github.com/users").then((response) => {
-      console.log(response.data);
-      this.setState({
-        usersData: response.data,
-      });
-    });
-  }
   render() {
     return (
       <div>

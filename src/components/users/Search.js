@@ -9,7 +9,6 @@ export class Search extends Component {
     this.setState({
       text: event.target.value,
     });
-    console.log(this.state.text);
   };
 
   handleSubmit = (event) => {
