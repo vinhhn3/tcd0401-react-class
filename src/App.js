@@ -12,16 +12,8 @@ import Users from "./components/users/Users";
 
 const App = () => {
   // Properties
-
   const [usersData, setUsers] = useState([]);
   const [user, setUser] = useState({});
-
-  const searchUsers = async (text) => {
-    const response = await axios.get(
-      `https://api.github.com/search/users?q=${text}`
-    );
-    setUsers(response.data.items);
-  };
 
   const clearUsers = () => {
     setUsers([]);
@@ -44,12 +36,8 @@ const App = () => {
                 path="/"
                 render={() => (
                   <Fragment>
-                    <Search
-                      searchUsers={searchUsers}
-                      clearUsers={clearUsers}
-                      usersData={usersData}
-                    />
-                    <Users usersData={usersData} />
+                    <Search clearUsers={clearUsers} />
+                    <Users />
                   </Fragment>
                 )}
               />
