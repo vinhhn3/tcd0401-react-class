@@ -12,12 +12,7 @@ import Users from "./components/users/Users";
 
 const App = () => {
   // Properties
-  const [usersData, setUsers] = useState([]);
   const [user, setUser] = useState({});
-
-  const clearUsers = () => {
-    setUsers([]);
-  };
 
   const getUser = async (login) => {
     const response = await axios.get(`https://api.github.com/users/${login}`);
@@ -36,7 +31,7 @@ const App = () => {
                 path="/"
                 render={() => (
                   <Fragment>
-                    <Search clearUsers={clearUsers} />
+                    <Search />
                     <Users />
                   </Fragment>
                 )}

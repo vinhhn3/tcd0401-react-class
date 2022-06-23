@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import GitHubContext from "../context/github/gitHubContext";
 
-const Search = (props) => {
+const Search = () => {
   const githubContext = useContext(GitHubContext);
-  const { searchUsers, usersData } = githubContext;
+  const { searchUsers, usersData, clearUsers } = githubContext;
   const [text, setText] = useState("");
-  const { clearUsers } = props;
 
   const handleChange = (event) => {
     setText(event.target.value);

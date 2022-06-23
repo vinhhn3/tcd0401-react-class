@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useReducer } from "react";
-import { SEARCH_USERS } from "../types";
+import { CLEAR_USERS, SEARCH_USERS } from "../types";
 import GitHubContext from "./gitHubContext";
 import GitHubReducer from "./gitHubReducer";
 
@@ -22,12 +22,19 @@ const GitHubState = (props) => {
     });
   };
 
+  const clearUsers = () => {
+    dispatch({
+      type: CLEAR_USERS,
+    });
+  };
+
   return (
     <GitHubContext.Provider
       value={{
         usersData: state.usersData,
         user: state.user,
         searchUsers,
+        clearUsers,
       }}
     >
       {props.children}
