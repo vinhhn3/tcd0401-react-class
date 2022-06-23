@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import GitHubState from "./components/context/github/gitHubState";
@@ -11,27 +10,6 @@ import User from "./components/users/User";
 import Users from "./components/users/Users";
 
 const App = () => {
-  // Properties
-
-  const [usersData, setUsers] = useState([]);
-  const [user, setUser] = useState({});
-
-  const searchUsers = async (text) => {
-    const response = await axios.get(
-      `https://api.github.com/search/users?q=${text}`
-    );
-    setUsers(response.data.items);
-  };
-
-  const clearUsers = () => {
-    setUsers([]);
-  };
-
-  const getUser = async (login) => {
-    const response = await axios.get(`https://api.github.com/users/${login}`);
-    setUser(response.data);
-  };
-
   return (
     <GitHubState>
       <Router>
@@ -44,12 +22,8 @@ const App = () => {
                 path="/"
                 render={() => (
                   <Fragment>
-                    <Search
-                      searchUsers={searchUsers}
-                      clearUsers={clearUsers}
-                      usersData={usersData}
-                    />
-                    <Users usersData={usersData} />
+                    <Search />
+                    <Users />
                   </Fragment>
                 )}
               />
@@ -57,9 +31,7 @@ const App = () => {
               <Route
                 exact
                 path="/user/:login"
-                render={(props) => (
-                  <User {...props} user={user} getUser={getUser} />
-                )}
+                render={(props) => <User {...props} />}
               />
               <Route path="" component={PageNotFound} />
             </Switch>
