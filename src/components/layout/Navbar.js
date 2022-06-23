@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <div>
       <div className="navbar bg-primary">
-        <h1>Hello TCD0401</h1>
+        <h1>GitHub Finder App</h1>
         <ul>
           <li>
             <Link to="/">Home</Link>
