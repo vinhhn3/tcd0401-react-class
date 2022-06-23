@@ -12,6 +12,7 @@ export default (state, action) => {
       return {
         ...state,
         usersData: [],
+        user: {},
       };
     case GET_USER: {
       return {
