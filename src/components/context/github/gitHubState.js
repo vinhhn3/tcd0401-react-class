@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { getGitHubUser, getGitHubUsers } from "../../../api/GitHubApi";
 import { CLEAR_USERS, GET_USER, SEARCH_USERS } from "../types";
 import GitHubContext from "./gitHubContext";
@@ -10,7 +10,14 @@ const GitHubState = (props) => {
     user: {},
   };
 
-  const [state, dispatch] = useReducer(GitHubReducer, initialState);
+  const [state, dispatch] = useReducer(GitHubReducer, initialState, () => {
+    const localState = localStorage.getItem("localState");
+    return localState ? JSON.parse(localState) : initialState;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("localState", JSON.stringify(state));
+  }, [state]);
 
   const searchUsers = async (login) => {
     const response = await getGitHubUsers(login);
